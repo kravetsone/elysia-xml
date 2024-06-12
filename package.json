@@ -1,0 +1,43 @@
+{
+    "name": "elysia-xml",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "devDependencies": {
+        "@biomejs/biome": "1.6.1",
+        "bun-types": "latest",
+        "elysia": "^1.0.23"
+    },
+    "peerDependencies": {
+        "elysia": "^1.0.23"
+    },
+    "description": "The library for elysia which allows you to work with XML",
+    "files": [
+        "dist"
+    ],
+    "homepage": "https://github.com/kravetsone/elysia-msgpack",
+    "keywords": [
+        "elysia",
+        "bun",
+        "xml",
+        "perfomance",
+        "serialize",
+        "deserialize",
+        "encode",
+        "decode",
+        "pack",
+        "unpack",
+        "json",
+        "binary"
+    ],
+    "scripts": {
+        "prepublishOnly": "tsc",
+        "dev": "bun run --watch src/index.ts",
+        "lint": "bunx @biomejs/biome check ./src",
+        "lint:fix": "bun lint --apply"
+    },
+    "type": "commonjs",
+    "types": "dist/index.d.ts",
+    "dependencies": {
+        "fast-xml-parser": "^4.4.0"
+    }
+}
