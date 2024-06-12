@@ -1,6 +1,6 @@
 {
     "name": "elysia-xml",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "dist/index.js",
     "devDependencies": {
         "@biomejs/biome": "1.6.1",

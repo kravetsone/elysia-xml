@@ -33,6 +33,22 @@ new Elysia()
     .listen(3000)
 ```
 
+### Use `xml` decorator
+
+You can also use the xml method to force xml to be returned.
+
+```ts
+new Elysia().use(xml()).post("/", ({ xml }) =>
+    xml({
+        some: "values",
+        and: true,
+        keys: 228,
+    })
+);
+```
+
+This method return [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+
 #### Output
 
 ```xml
