@@ -39,20 +39,23 @@ export function xml<Type extends LifeCycleType>(
 			if (contentTypes.includes(contentType))
 				return parser.parse(await request.text());
 		})
-		.mapResponse({ as }, ({ headers, response: rawResponse }) => {
+		.decorate("xml", (value: any) => {
 			const response = options.transformResponse
-				? options.transformResponse(rawResponse)
-				: rawResponse;
+				? options.transformResponse(value)
+				: value;
 
+			return new Response(builder.build(response), {
+				headers: {
+					"content-type": contentTypes.at(0) || "",
+				},
+			});
+		})
+		.mapResponse({ as }, ({ headers, response: rawResponse, xml }) => {
 			if (
 				(options.force ||
 					contentTypes.some((x) => headers?.accept?.includes(x))) &&
-				response
+				rawResponse
 			)
-				return new Response(builder.build(response), {
-					headers: {
-						"content-type": contentTypes.at(0) || "",
-					},
-				});
+				return xml(rawResponse);
 		});
 }
