@@ -7,17 +7,38 @@ import {
 	type XmlBuilderOptions,
 } from "fast-xml-parser";
 
+/** Interface of XML plugin options */
 export interface XMLOptions<Type extends LifeCycleType = "scoped"> {
+	/** Options to configure `XML` builder
+	 *
+	 * [XmlBuilderOptions](https://github.com/NaturalIntelligence/fast-xml-parser/blob/master/docs/v4/3.XMLBuilder.md) */
 	builder?: XmlBuilderOptions;
+	/** Options to configure `XML` parser
+	 *
+	 * [X2jOptions](https://github.com/NaturalIntelligence/fast-xml-parser/blob/master/docs/v4/2.XMLparseOptions.md)  */
 	parser?: X2jOptions;
+	/** An array of `content-types` that need to be serialized/deserialized
+	 *
+	 * @default
+	 * ["text/xml", "application/xml", "application/rss+xml"]
+	 */
 	contentTypes?: string[];
+	/** Option to specify `type` of hooks
+	 *
+	 * [LifeCycleType](https://elysiajs.com/essential/scope.html#hook-type)
+	 */
 	as?: Type;
+	/** Don't look at the `accept` header to serialize?
+	 *
+	 * @default false
+	 */
 	force?: boolean;
+	/** Handler to transform `response` */
 	transformResponse?: (value: any) => any;
 }
 
 // TODO: add XMLValidator and errors
-
+/** The library for elysia which allows you to work with XM */
 export function xml<Type extends LifeCycleType>(
 	options: XMLOptions<Type> = {},
 ) {
