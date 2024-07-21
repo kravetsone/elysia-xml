@@ -1,12 +1,19 @@
 {
     "name": "elysia-xml",
     "version": "0.0.3",
-    "main": "dist/index.js",
+    "module": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
     "devDependencies": {
         "@biomejs/biome": "1.6.1",
         "@types/bun": "^1.1.6",
         "bun-types": "latest",
-        "elysia": "^1.1.0"
+        "elysia": "^1.1.0",
+        "pkgroll": "^2.4.1"
     },
     "peerDependencies": {
         "elysia": "^1.1.0"
@@ -31,13 +38,13 @@
         "binary"
     ],
     "scripts": {
-        "prepublishOnly": "tsc",
-        "dev": "bun run --watch src/index.ts",
+        "prepublishOnly": "bunx pkgroll",
+        "dev": "bun run --watch src/test.ts",
         "lint": "bunx @biomejs/biome check ./src",
         "lint:fix": "bun lint --apply"
     },
-    "type": "commonjs",
-    "types": "dist/index.d.ts",
+    "type": "module",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "fast-xml-parser": "^4.4.0"
     }
