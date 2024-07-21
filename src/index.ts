@@ -1,5 +1,4 @@
-import { Elysia } from "elysia";
-import type { LifeCycleType } from "elysia/types";
+import { Elysia, type LifeCycleType } from "elysia";
 import {
 	type X2jOptions,
 	XMLBuilder,
@@ -56,7 +55,7 @@ export function xml<Type extends LifeCycleType>(
 		name: "elysia-msgpack",
 		seed: options,
 	})
-		.onParse({ as }, async ({ request, contentType }) => {
+		.onParse({ as }, async function parseXMLData({ request, contentType }) {
 			if (contentTypes.includes(contentType))
 				return parser.parse(await request.text());
 		})
@@ -71,12 +70,15 @@ export function xml<Type extends LifeCycleType>(
 				},
 			});
 		})
-		.mapResponse({ as }, ({ headers, response: rawResponse, xml }) => {
-			if (
-				(options.force ||
-					contentTypes.some((x) => headers?.accept?.includes(x))) &&
-				rawResponse
-			)
-				return xml(rawResponse);
-		});
+		.mapResponse(
+			{ as },
+			function buildXML({ headers, response: rawResponse, xml }) {
+				if (
+					(options.force ||
+						contentTypes.some((x) => headers?.accept?.includes(x))) &&
+					rawResponse
+				)
+					return xml(rawResponse);
+			},
+		);
 }
